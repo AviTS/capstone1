@@ -1,7 +1,7 @@
 """
 User:
 1. Create user (signup function) - DONE
-2. Get user (login function) - 
+2. Get user (login function) - DONE
 
 Watchlist:
 1. Create a watchlist (...) - DONE
@@ -57,7 +57,6 @@ def add_stock_to_watchlist(ticker, company_name, stock_url, watchlist_id):
     db.session.add(watchlist_stock)
     db.session.commit()
 
-# come back to this function
 def remove_stock_from_watchlist(stock_id, watchlist_id):
     """Removes a stock from a watchlist."""
     WatchlistStock.query.filter(WatchlistStock.stock_id == stock_id, WatchlistStock.watchlist_id == watchlist_id).delete()

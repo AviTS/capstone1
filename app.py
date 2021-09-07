@@ -101,6 +101,12 @@ def logout():
 
     return redirect('/login')
 
+
+
+
+
+
+
 @app.route('/seed_data')
 def seed_data():
     user = create_user('Avi', 'avi@a.com', '123')
