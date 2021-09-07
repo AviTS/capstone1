@@ -7,6 +7,8 @@ from models import db, connect_db
 from forms import UserAddForm, LoginForm
 from stocks import *
 
+# test
+
 
 app = Flask(__name__)
 
