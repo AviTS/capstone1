@@ -19,7 +19,7 @@ Stock:
 
 from models import db, User, Watchlist, WatchlistStock, Stock
 
-
+# created a new version of the below function on app.py
 def create_watchlist(name, user_id):
     """Creates a new watchlist."""
     watchlist = Watchlist(

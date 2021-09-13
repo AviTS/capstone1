@@ -4,7 +4,7 @@ from flask import Flask, redirect, render_template, session, g, request, flash
 from sqlalchemy.exc import IntegrityError
 
 from models import db, connect_db
-from forms import UserAddForm, LoginForm
+from forms import UserAddForm, LoginForm, NewWatchlistForm
 from stocks import *
 
 
@@ -44,6 +44,7 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
+
 @app.route('/')
 def homepage():
     return render_template('home.html')
@@ -74,6 +75,7 @@ def create_user():
     else:
         return render_template('/signup.html', form=form)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """Handle user login."""
@@ -91,6 +93,7 @@ def login():
 
     return render_template('login.html', form=form)
 
+
 @app.route('/logout')
 def logout():
     """Handle user logout."""
@@ -102,6 +105,24 @@ def logout():
     return redirect('/login')
 
 
+@app.route('/new_watchlist', methods=['GET', 'POST'])
+def new_watchlist():
+    """Creates a new watchlist."""
+    form = NewWatchlistForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+
+        watchlist = Watchlist(name=name, user_id=g.user.id)
+
+        db.session.add(watchlist)
+        db.session.commit()
+
+        # the redirect below should redirect to the newly created watchlist page
+        return redirect('/')
+
+
+    return render_template('new_watchlist.html', form=form)
 
 
 
