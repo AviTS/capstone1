@@ -47,7 +47,8 @@ def do_logout():
 
 @app.route('/')
 def homepage():
-    return render_template('home.html')
+
+    return render_template('home.html', user_id=g.user)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -113,19 +114,40 @@ def new_watchlist():
     if form.validate_on_submit():
         name = form.name.data
 
-        watchlist = Watchlist(name=name, user_id=g.user.id)
+        watchlist = create_watchlist(name=name, user_id=g.user.id)
 
-        db.session.add(watchlist)
-        db.session.commit()
-
-        # the redirect below should redirect to the newly created watchlist page
-        return redirect('/')
+        return redirect('/watchlists')
 
 
     return render_template('new_watchlist.html', form=form)
 
 
+@app.route('/watchlists')
+def show_watchlists():
+    """Shows all of the user's watchlists."""
+    if not g.user:
+        flash("Access unauthorized - Please log in to see your watchlists.", "danger")
+        
+        return redirect("/login")
 
+    watchlists = get_watchlists(user_id=g.user.id)
+
+    return render_template('show_watchlists.html', watchlists=watchlists)
+
+
+@app.route('/watchlists/<int:watchlist_id>')
+def show_watchlist(watchlist_id):
+    """Show a watchlist."""
+    if not g.user:
+        flash("Access unauthorized - Please log in to see your watchlist.", "danger")
+        
+        return redirect("/login")
+
+
+    stocks = get_watchlist(watchlist_id=watchlist_id)
+    name = watchlist_name(watchlist_id=watchlist_id)
+
+    return render_template('show_watchlist.html', stocks=stocks, name=name)
 
 
 @app.route('/seed_data')

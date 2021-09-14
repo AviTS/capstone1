@@ -19,7 +19,7 @@ Stock:
 
 from models import db, User, Watchlist, WatchlistStock, Stock
 
-# created a new version of the below function on app.py
+
 def create_watchlist(name, user_id):
     """Creates a new watchlist."""
     watchlist = Watchlist(
@@ -99,6 +99,16 @@ def get_watchlist(watchlist_id):
     stock_id  |  stocks.id  | watchlist_id  |  ticker  |  name  |  url
     """
 
+def watchlist_name(watchlist_id):
+    name = db.session.query(Watchlist).filter(Watchlist.id == watchlist_id).first()
+
+    return name
+    """
+    SELECT watchlist.name 
+    FROM watchlist
+    WHERE watchlist_id = python var watchlist.id
+    """
+    
     # print('Avi1')
     # print(result)
     # print(type(result))

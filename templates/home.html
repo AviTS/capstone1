@@ -3,13 +3,13 @@
 
 <div class='row'>
     <h1>Finance App</h1>
-    {% if not g.user %}
+    {% if not user_id %}
     <ul><a href="/signup" class="btn btn-primary">Sign up</a></ul>
     <ul><a href="/login" class="btn btn-primary">Log in</a></ul>
     {% else %}
     <ul><a href="/new_watchlist" class="btn btn-primary">Create a New Watchlist</a></ul>
+    <ul><a href="/watchlists" class="btn btn-primary">View Your Watchlists</a></ul>
     {% endif %}
-
 
 </div>
 

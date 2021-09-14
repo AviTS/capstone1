@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Your Watchlists</h2>
+
+<ul>
+    {% for watchlist in watchlists %}
+    <li>
+        <a href='/watchlists/{{watchlist.id}}'>{{ watchlist.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
