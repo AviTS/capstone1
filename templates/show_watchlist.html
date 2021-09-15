@@ -7,7 +7,7 @@
     <ul>
         {% for stock in stocks %}
         <li>
-            {{stock}}
+            {{stock.ticker}} - {{stock.company_name}}
         </li>
         {% endfor %}
     </ul>

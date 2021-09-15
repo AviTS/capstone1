@@ -152,11 +152,10 @@ def show_watchlist(watchlist_id):
 
 @app.route('/seed_data')
 def seed_data():
-    user = create_user('Avi', 'avi@a.com', '123')
-    watchlist = create_watchlist('Test Watchlist 1', user.id)
-    watchlist2 = create_watchlist('Test Watchlist 2', user.id)
-    add_stock_to_watchlist('TEST', 'The Test Company', 'test_url', watchlist.id)
-    add_stock_to_watchlist('TEST', 'The Test Company', 'test_url', watchlist2.id)
+    watchlist = create_watchlist('Test Watchlist 1', g.user.id)
+    watchlist2 = create_watchlist('Test Watchlist 2', g.user.id)
+    add_stock_to_watchlist('TEST', 'The Test Company', watchlist.id)
+    add_stock_to_watchlist('TEST', 'The Test Company', watchlist2.id)
 
 @app.route('/test')
 def test():

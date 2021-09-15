@@ -51,7 +51,7 @@ class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ticker = db.Column(db.Text, unique=True)
     company_name = db.Column(db.Text, unique=True)
-    stock_url = db.Column(db.Text)
+    # stock_url = db.Column(db.Text)
 
 
 class WatchlistStock(db.Model):

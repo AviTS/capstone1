@@ -32,7 +32,7 @@ def create_watchlist(name, user_id):
 
     return watchlist
 
-def add_stock_to_watchlist(ticker, company_name, stock_url, watchlist_id):
+def add_stock_to_watchlist(ticker, company_name, watchlist_id):
     """Creates a new stock object and adds it to a watchlist."""
     stock_res = Stock.query.filter(Stock.ticker == ticker).all()
     # print(stock_res)
@@ -41,7 +41,7 @@ def add_stock_to_watchlist(ticker, company_name, stock_url, watchlist_id):
         stock = Stock(
             ticker = ticker,
             company_name = company_name,
-            stock_url = stock_url
+            # stock_url = stock_url
         )
 
         db.session.add(stock)
