@@ -100,9 +100,9 @@ def get_watchlist(watchlist_id):
     """
 
 def watchlist_name(watchlist_id):
-    name = db.session.query(Watchlist).filter(Watchlist.id == watchlist_id).first()
+    watchlist = db.session.query(Watchlist).filter(Watchlist.id == watchlist_id).first()
 
-    return name
+    return watchlist
     """
     SELECT watchlist.name 
     FROM watchlist

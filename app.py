@@ -140,14 +140,31 @@ def show_watchlist(watchlist_id):
     """Show a watchlist."""
     if not g.user:
         flash("Access unauthorized - Please log in to see your watchlist.", "danger")
-        
+
         return redirect("/login")
 
 
     stocks = get_watchlist(watchlist_id=watchlist_id)
-    name = watchlist_name(watchlist_id=watchlist_id)
+    watchlist = watchlist_name(watchlist_id=watchlist_id)
 
-    return render_template('show_watchlist.html', stocks=stocks, name=name)
+    return render_template('show_watchlist.html', stocks=stocks, watchlist=watchlist)
+
+
+@app.route('/watchlists/<int:watchlist_id>/stock/<int:stock_id>', methods=['POST'])
+def delete_stock(watchlist_id, stock_id):
+    """Deletes a stock from a watchlist."""
+    if not g.user:
+        flash("Access unauthorized - Please log in.", "danger")
+
+        return redirect('/login')
+
+    stock = WatchlistStock.query.filter(WatchlistStock.stock_id == stock_id, WatchlistStock.watchlist_id == watchlist_id).first()
+    
+    db.session.delete(stock)
+    db.session.commit()
+
+    return redirect(f'/watchlists/{watchlist_id}')
+
 
 
 @app.route('/seed_data')

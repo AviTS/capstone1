@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ name.name }}</h2>
+<h2>{{ watchlist.name }}</h2>
 
 <div>
     <ul>
         {% for stock in stocks %}
         <li>
-            {{stock.ticker}} - {{stock.company_name}}
+            {{stock.ticker}} - {{stock.company_name}} 
+            
+            <form method="POST" action="/watchlists/{{watchlist.id}}/stock/{{ stock.id }}"> <button class="btn btn-outline-danger">Delete stock</button>
+            </form>
+
         </li>
         {% endfor %}
     </ul>
 </div>
+
 
 
 {% endblock %}
