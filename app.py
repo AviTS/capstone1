@@ -188,13 +188,14 @@ def add_stock(watchlist_id):
 def get_stock_details(symbol, watchlist_id):
     stock_details = get_company_overview(symbol=symbol, API_KEY=Alpha_API_KEY)
 
-    ticker = stock_details['Symbol']
-    company_name = stock_details['Name']
+    # ticker = stock_details['Symbol']
+    # company_name = stock_details['Name']
 
-    add_stock_to_watchlist(ticker=ticker, company_name=company_name, watchlist_id=watchlist_id)
-
-
+    # add_stock_to_watchlist(ticker=ticker, company_name=company_name, watchlist_id=watchlist_id)
+    
     return render_template('show_stock_details.html', stock_details=stock_details)
+
+
 
 @app.route('/seed_data')
 def seed_data():
