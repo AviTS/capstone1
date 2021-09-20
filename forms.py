@@ -20,3 +20,9 @@ class NewWatchlistForm(FlaskForm):
     """New Watchlist form."""
 
     name = StringField('Name', validators=[DataRequired()])
+
+class NewStockForm(FlaskForm):
+
+    symbol = StringField('Symbol', validators=[DataRequired()])
+    company_name = StringField('Company Name', validators=[DataRequired()])
+    

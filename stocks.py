@@ -18,7 +18,7 @@ Stock:
 """
 
 from models import db, User, Watchlist, WatchlistStock, Stock
-
+import requests
 
 def create_watchlist(name, user_id):
     """Creates a new watchlist."""
@@ -49,13 +49,18 @@ def add_stock_to_watchlist(ticker, company_name, watchlist_id):
     else:
         stock = stock_res[0]
 
-    watchlist_stock = WatchlistStock(
-        watchlist_id = watchlist_id,
-        stock_id = stock.id
-    )
+    watchlist_stock_res = WatchlistStock.query.filter(WatchlistStock.watchlist_id == watchlist_id).all()
 
-    db.session.add(watchlist_stock)
-    db.session.commit()
+    if len(watchlist_stock_res) == 0:
+        watchlist_stock = WatchlistStock(
+            watchlist_id = watchlist_id,
+            stock_id = stock.id
+        )
+
+        db.session.add(watchlist_stock)
+        db.session.commit()
+    else:
+        watchlist_stock = watchlist_stock_res[0]
 
 def remove_stock_from_watchlist(stock_id, watchlist_id):
     """Removes a stock from a watchlist."""
@@ -108,8 +113,15 @@ def watchlist_name(watchlist_id):
     FROM watchlist
     WHERE watchlist_id = python var watchlist.id
     """
-    
     # print('Avi1')
     # print(result)
     # print(type(result))
     # print(result[0].stock_url)
+
+def get_company_overview(symbol, API_KEY):
+    url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={API_KEY}'
+
+    res = requests.get(url)
+    data = res.json()
+
+    return data

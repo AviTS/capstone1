@@ -1,11 +1,14 @@
 import os
 from flask import Flask, redirect, render_template, session, g, request, flash
 
+
+
 from sqlalchemy.exc import IntegrityError
 
 from models import db, connect_db
-from forms import UserAddForm, LoginForm, NewWatchlistForm
+from forms import NewStockForm, UserAddForm, LoginForm, NewWatchlistForm
 from stocks import *
+from my_secrets import Alpha_API_KEY
 
 
 app = Flask(__name__)
@@ -166,6 +169,32 @@ def delete_stock(watchlist_id, stock_id):
     return redirect(f'/watchlists/{watchlist_id}')
 
 
+@app.route('/watchlists/<int:watchlist_id>/stock/add', methods=['GET', 'POST'])
+def add_stock(watchlist_id):
+    form = NewStockForm()
+
+    if form.validate_on_submit():
+        symbol = form.symbol.data
+        company_name = form.company_name.data
+        
+        add_stock_to_watchlist(ticker=symbol, company_name=company_name, watchlist_id=watchlist_id)
+
+        return redirect(f'/watchlists/{watchlist_id}')
+
+    return render_template('new_stock.html', form=form)
+
+
+@app.route('/watchlists/<int:watchlist_id>/stock/<symbol>/details', methods=['GET', 'POST'])
+def get_stock_details(symbol, watchlist_id):
+    stock_details = get_company_overview(symbol=symbol, API_KEY=Alpha_API_KEY)
+
+    ticker = stock_details['Symbol']
+    company_name = stock_details['Name']
+
+    add_stock_to_watchlist(ticker=ticker, company_name=company_name, watchlist_id=watchlist_id)
+
+
+    return render_template('show_stock_details.html', stock_details=stock_details)
 
 @app.route('/seed_data')
 def seed_data():
@@ -181,3 +210,7 @@ def test():
 @app.route('/delete_test')
 def delete_test():
     remove_stock_from_watchlist(1, 1)
+
+@app.route('/api_test', methods=['GET', 'POST'])
+def get_company_overview_test():
+    print(get_company_overview(symbol='TSLA', API_KEY=Alpha_API_KEY))

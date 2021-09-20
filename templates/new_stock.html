@@ -3,9 +3,9 @@
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form method="POST" id="watchlist_form">
+        <form method="POST" id="stock_form">
             {{ form.hidden_tag() }}
-        
+
             {% for field in form if field.widget.input_type != 'hidden' %}
             {% for error in field.errors %}
             <span class="text-danger">{{ error }}</span>
@@ -13,7 +13,7 @@
             {{ field(placeholder=field.label.text, class="form-control") }}
             {% endfor %}
 
-            <button class="btn btn-primary btn-block">Create Watchlist!</button>
+            <button class="btn btn-primary btn-block">Add New Stock!</button>
         </form>
     </div>
 </div>

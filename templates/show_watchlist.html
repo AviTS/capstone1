@@ -11,12 +11,13 @@
             
             <form method="POST" action="/watchlists/{{watchlist.id}}/stock/{{ stock.id }}"> <button class="btn btn-outline-danger">Delete stock</button>
             </form>
-
         </li>
         {% endfor %}
     </ul>
 </div>
 
+
+<ul><a href="/watchlists/{{watchlist.id}}/stock/add" action="/watchlists/{{watchlist.id}}/stock/add" class="btn btn-primary">Add a new stock</a></ul>
 
 
 {% endblock %}
