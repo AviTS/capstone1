@@ -172,9 +172,7 @@ def add_stock(watchlist_id):
 @app.route('/watchlists/<int:watchlist_id>/stock/<symbol>/details', methods=['GET', 'POST'])
 def get_stock_details(symbol, watchlist_id):
     stock_details = get_company_overview(symbol=symbol, API_KEY=Alpha_API_KEY)
-    
-    print('1111111111111111')
-    print(stock_details)
+
     # ticker = stock_details['Symbol']
     # company_name = stock_details['Name']
 
@@ -217,4 +215,4 @@ def delete_test():
 
 @app.route('/api_test', methods=['GET', 'POST'])
 def get_company_overview_test():
-    print(get_company_overview(symbol='TSLA', API_KEY=Alpha_API_KEY))
+    print(get_company_overview(symbol='AAPL', API_KEY=Alpha_API_KEY))
