@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{{ stock_details.Symbol }}
-{{ stock_details.Name }}
+<div>
+    {% if stock_details|length == 0 %}
+    <ul>
+        <b>The stock you entered doesn't exist. Please enter a valid stock symbol.</b>
+    </ul>
+
+    {% else %}
+    <ul>
+        <b>Symbol:</b> {{ stock_details.Symbol }}<br>
+        <b>Company Name:</b> {{ stock_details.Name }}<br>
+        <b>Description:</b> {{ stock_details.Description }}<br>
+
+    </ul>
+    {% endif %}
+</div>
+
+<ul><a href="/watchlists/{{watchlist_id}}" action="/watchlists/{{watchlist_id}}" class="btn btn-primary">Back to watchlist</a></ul>
 
 {% endblock %}

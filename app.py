@@ -153,21 +153,6 @@ def show_watchlist(watchlist_id):
     return render_template('show_watchlist.html', stocks=stocks, watchlist=watchlist)
 
 
-@app.route('/watchlists/<int:watchlist_id>/stock/<int:stock_id>', methods=['POST'])
-def delete_stock(watchlist_id, stock_id):
-    """Deletes a stock from a watchlist."""
-    if not g.user:
-        flash("Access unauthorized - Please log in.", "danger")
-
-        return redirect('/login')
-
-    stock = WatchlistStock.query.filter(WatchlistStock.stock_id == stock_id, WatchlistStock.watchlist_id == watchlist_id).first()
-    
-    db.session.delete(stock)
-    db.session.commit()
-
-    return redirect(f'/watchlists/{watchlist_id}')
-
 
 @app.route('/watchlists/<int:watchlist_id>/stock/add', methods=['GET', 'POST'])
 def add_stock(watchlist_id):
@@ -187,13 +172,31 @@ def add_stock(watchlist_id):
 @app.route('/watchlists/<int:watchlist_id>/stock/<symbol>/details', methods=['GET', 'POST'])
 def get_stock_details(symbol, watchlist_id):
     stock_details = get_company_overview(symbol=symbol, API_KEY=Alpha_API_KEY)
-
+    
+    print('1111111111111111')
+    print(stock_details)
     # ticker = stock_details['Symbol']
     # company_name = stock_details['Name']
 
     # add_stock_to_watchlist(ticker=ticker, company_name=company_name, watchlist_id=watchlist_id)
+
+    return render_template('show_stock_details.html', stock_details=stock_details, watchlist_id=watchlist_id)
+
+@app.route('/watchlists/<int:watchlist_id>/stock/<int:stock_id>', methods=['POST'])
+def delete_stock(watchlist_id, stock_id):
+    """Deletes a stock from a watchlist."""
+    if not g.user:
+        flash("Access unauthorized - Please log in.", "danger")
+
+        return redirect('/login')
+
+    stock = WatchlistStock.query.filter(WatchlistStock.stock_id == stock_id, WatchlistStock.watchlist_id == watchlist_id).first()
     
-    return render_template('show_stock_details.html', stock_details=stock_details)
+    db.session.delete(stock)
+    db.session.commit()
+
+    return redirect(f'/watchlists/{watchlist_id}')
+
 
 
 

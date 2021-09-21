@@ -3,6 +3,7 @@
 
 <div class="row justify-content-center">
     <div class="col-md-6">
+        <h2>Create a New Watchlist</h2>
         <form method="POST" id="watchlist_form">
             {{ form.hidden_tag() }}
         
@@ -14,6 +15,8 @@
             {% endfor %}
 
             <button class="btn btn-primary btn-block">Create Watchlist!</button>
+
+            <a href="/" action="/" class="btn btn-primary">Cancel</a>
         </form>
     </div>
 </div>

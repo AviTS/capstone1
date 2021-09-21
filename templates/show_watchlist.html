@@ -7,7 +7,7 @@
     <ul>
         {% for stock in stocks %}
         <li>
-            {{stock.ticker}} - {{stock.company_name}} 
+            <a href="/watchlists/{{watchlist.id}}/stock/{{stock.ticker}}/details" action="watchlists/{{watchlist.id}}/stock/{{stock.ticker}}/details">{{stock.ticker}} - {{stock.company_name}} </a>
             
             <form method="POST" action="/watchlists/{{watchlist.id}}/stock/{{ stock.id }}"> <button class="btn btn-outline-danger">Delete stock</button>
             </form>
@@ -18,6 +18,10 @@
 
 
 <ul><a href="/watchlists/{{watchlist.id}}/stock/add" action="/watchlists/{{watchlist.id}}/stock/add" class="btn btn-primary">Add a new stock</a></ul>
+
+<ul><a href="/watchlists" action="/watchlists" class="btn btn-primary">Back to all watchlists</a></ul>
+
+
 
 
 {% endblock %}

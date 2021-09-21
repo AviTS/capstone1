@@ -49,18 +49,16 @@ def add_stock_to_watchlist(ticker, company_name, watchlist_id):
     else:
         stock = stock_res[0]
 
-    watchlist_stock_res = WatchlistStock.query.filter(WatchlistStock.watchlist_id == watchlist_id).all()
+    # watchlist_stock_res = WatchlistStock.query.filter(WatchlistStock.watchlist_id == watchlist_id).all()
 
-    if len(watchlist_stock_res) == 0:
-        watchlist_stock = WatchlistStock(
-            watchlist_id = watchlist_id,
-            stock_id = stock.id
-        )
+    watchlist_stock = WatchlistStock(
+        watchlist_id = watchlist_id,
+        stock_id = stock.id
+    )
 
-        db.session.add(watchlist_stock)
-        db.session.commit()
-    else:
-        watchlist_stock = watchlist_stock_res[0]
+    db.session.add(watchlist_stock)
+    db.session.commit()
+
 
 def remove_stock_from_watchlist(stock_id, watchlist_id):
     """Removes a stock from a watchlist."""
