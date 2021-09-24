@@ -153,7 +153,6 @@ def show_watchlist(watchlist_id):
     return render_template('show_watchlist.html', stocks=stocks, watchlist=watchlist)
 
 
-
 @app.route('/watchlists/<int:watchlist_id>/stock/add', methods=['GET', 'POST'])
 def add_stock(watchlist_id):
     form = NewStockForm()
@@ -166,19 +165,32 @@ def add_stock(watchlist_id):
 
         return redirect(f'/watchlists/{watchlist_id}')
 
-    return render_template('new_stock.html', form=form)
+    return render_template('new_stock.html', form=form, watchlist_id=watchlist_id)
 
 
 @app.route('/watchlists/<int:watchlist_id>/stock/<symbol>/details', methods=['GET', 'POST'])
 def get_stock_details(symbol, watchlist_id):
     stock_details = get_company_overview(symbol=symbol, API_KEY=Alpha_API_KEY)
 
+    if len(stock_details) > 0:
+        stock_quote = get_quote(symbol=symbol, API_KEY=Alpha_API_KEY)
+
+        price = stock_quote.get('Global Quote').get('05. price')
+        price_float = float(price)
+
+        price_change = stock_quote.get('Global Quote').get('10. change percent')
+    
+    else:
+        flash("This stock symbol doesn't exist. Please enter a valid stock symbol", "danger")
+        return redirect(f'/watchlists/{watchlist_id}')
+
     # ticker = stock_details['Symbol']
     # company_name = stock_details['Name']
 
     # add_stock_to_watchlist(ticker=ticker, company_name=company_name, watchlist_id=watchlist_id)
 
-    return render_template('show_stock_details.html', stock_details=stock_details, watchlist_id=watchlist_id)
+    return render_template('show_stock_details.html', stock_details=stock_details, price=price_float, price_change=price_change, watchlist_id=watchlist_id)
+
 
 @app.route('/watchlists/<int:watchlist_id>/stock/<int:stock_id>', methods=['POST'])
 def delete_stock(watchlist_id, stock_id):
@@ -216,3 +228,7 @@ def delete_test():
 @app.route('/api_test', methods=['GET', 'POST'])
 def get_company_overview_test():
     print(get_company_overview(symbol='AAPL', API_KEY=Alpha_API_KEY))
+
+@app.route('/api_test_2', methods=['GET', 'POST'])
+def get_quote_test():
+    print(type(get_quote(symbol='AAPL', API_KEY=Alpha_API_KEY)))

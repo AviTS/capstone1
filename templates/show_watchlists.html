@@ -3,15 +3,26 @@
 
 <h2>Your Watchlists</h2>
 
-<ul>
-    {% for watchlist in watchlists %}
-    <li>
-        <a href='/watchlists/{{watchlist.id}}'>{{ watchlist.name }}</a>
-    </li>
-    {% endfor %}
-</ul>
 
-<ul><a href="/" action="/" class="btn btn-primary">Home</a></ul>
+<div class="col-md-12">
+    <div class="row">
+        {% for watchlist in watchlists %}
+        <div class="col-lg-4 col-md-6 col-12">
+        <div class="card watchlist-card">
+                <h5>
+                    <a href='/watchlists/{{watchlist.id}}'>{{ watchlist.name }}</a>
+                </h5>
+
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+<ul><a href="/" action="/" class="btn btn-outline-primary">Home</a></ul>
 
 
 {% endblock %}

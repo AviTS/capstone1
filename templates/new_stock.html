@@ -17,7 +17,8 @@
             {{ field(placeholder=field.label.text, class="form-control") }}
             {% endfor %}
 
-            <button class="btn btn-primary btn-block">Add New Stock!</button>
+            <button class="btn btn-outline-primary btn-block">Add Stock!</button>
+            <a href="/watchlists/{{watchlist_id}}" action="/watchlists/{{watchlist_id}}" class="btn btn-outline-danger">Cancel</a>
         </form>
     </div>
 </div>

@@ -3,23 +3,32 @@
 
 <h2>{{ watchlist.name }}</h2>
 
-<div>
-    <ul>
+<div class="col-md-12">
+    <div class="row">
         {% for stock in stocks %}
-        <li>
-            <a href="/watchlists/{{watchlist.id}}/stock/{{stock.ticker}}/details" action="watchlists/{{watchlist.id}}/stock/{{stock.ticker}}/details">{{stock.ticker}} - {{stock.company_name}} </a>
-            
-            <form method="POST" action="/watchlists/{{watchlist.id}}/stock/{{ stock.id }}"> <button class="btn btn-outline-danger">Delete stock</button>
-            </form>
-        </li>
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="card stock-card">
+
+                <a href="/watchlists/{{watchlist.id}}/stock/{{stock.ticker}}/details" action="watchlists/{{watchlist.id}}/stock/{{stock.ticker}}/details">{{stock.ticker}} - {{stock.company_name}} 
+                </a>
+                
+                <form method="POST" id="delete-stock-button" action="/watchlists/{{watchlist.id}}/stock/{{ stock.id }}"> <button class="btn btn-outline-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+        <div class="col-md-4">
+        <div class="card stock-card d-flex" id="add-stock-card">
+        <a href="/watchlists/{{watchlist.id}}/stock/add" action="/watchlists/{{watchlist.id}}/stock/add" class="btn btn-sm btn-outline-primary mx-auto" id="add-stock-card-btn">Add a new stock</a>
+        </div>
+        </div>
+    </div>
 </div>
 
 
-<ul><a href="/watchlists/{{watchlist.id}}/stock/add" action="/watchlists/{{watchlist.id}}/stock/add" class="btn btn-primary">Add a new stock</a></ul>
 
-<ul><a href="/watchlists" action="/watchlists" class="btn btn-primary">Back to all watchlists</a></ul>
+
+<ul><a href="/watchlists" action="/watchlists" class="btn btn-outline-primary">Back to all watchlists</a></ul>
 
 
 

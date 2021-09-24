@@ -12,11 +12,12 @@
         <b>Symbol:</b> {{ stock_details.Symbol }}<br>
         <b>Company Name:</b> {{ stock_details.Name }}<br>
         <b>Description:</b> {{ stock_details.Description }}<br>
-
+        <b>Price:</b> ${{ price }}<br>
+        <b>Today's Change in Price:</b> {{ price_change }}<br>
     </ul>
     {% endif %}
 </div>
 
-<ul><a href="/watchlists/{{watchlist_id}}" action="/watchlists/{{watchlist_id}}" class="btn btn-primary">Back to watchlist</a></ul>
+<ul><a href="/watchlists/{{watchlist_id}}" action="/watchlists/{{watchlist_id}}" class="btn btn-outline-primary">Back to watchlist</a></ul>
 
 {% endblock %}

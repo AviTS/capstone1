@@ -1,0 +1,82 @@
+body {
+  background-color: rgb(240, 255, 255);
+}
+
+.form-control {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  border-radius: 5px;
+}
+
+.navbar {
+  background-color: rgb(240, 255, 255);
+  height: 65px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 9999;
+}
+
+.navbar a {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#nav-h1-home {
+  text-decoration: none;
+  color: rgb(4, 99, 109);
+}
+
+#nav-h1-home:hover {
+  color: rgb(91, 163, 174);
+}
+
+.watchlist-card {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.watchlist-card > h5 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.watchlist-card > h5 > a {
+  color: rgb(50, 50, 50);
+  text-decoration: none;
+}
+
+.stock-card {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.stock-card > a {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgb(50, 50, 50);
+  text-decoration: none;
+}
+
+.stock-card #delete-stock-button {
+  align-self: center;
+}
+
+.stock-card .btn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#add-stock-card .btn {
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-bottom: 49px;
+}
+
+#add-stock-card-btn {
+  transform: translateY(60%);
+}

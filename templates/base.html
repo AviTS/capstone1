@@ -11,24 +11,28 @@
     <script src="https://unpkg.com/jquery"></script>
     <script src="https://unpkg.com/popper"></script>
     <script src="https://unpkg.com/bootstrap"></script>
+    <link rel="stylesheet" href="/static/stylesheets/style.css">
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
     <nav class="navbar navbar-expand">
         <div class="container-fluid">
             <div class="navbar-header">
+                <a href="/" id="nav-h1-home">
+                <h1>FinTrackr</h1>
+                </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 {% if not g.user %}
-                <li><a href="/signup">Sign up</a></li>
-                <li><a href="/login">Log in</a></li>
+                <li><a href="/signup" class="btn btn-block btn-outline-primary">Sign up</a></li>
+                <li><a href="/login" class="btn btn-block btn-outline-primary">Log in</a></li>
                 {% else %}
-                <li><a href="/logout" class="btn">Log out</a></li>
+                <li><a href="/logout" class="btn btn-block btn-outline-danger">Log out</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid">
         {% for category, message in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}

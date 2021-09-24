@@ -123,3 +123,11 @@ def get_company_overview(symbol, API_KEY):
     data = res.json()
 
     return data
+
+def get_quote(symbol, API_KEY):
+    url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={API_KEY}'
+
+    res = requests.get(url)
+    data = res.json()
+    
+    return data
