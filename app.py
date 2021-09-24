@@ -22,7 +22,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['API_KEY'] = os.environ.get('API_KEY')
 
 connect_db(app)
-db.create_all()
+# db.create_all() 
+# THIS IS BAD, PLEASE DELETE, DON'T HAVE THIS IN FINAL APP
 
 CURR_USER_KEY = "curr_user"
 
@@ -211,6 +212,9 @@ def delete_stock(watchlist_id, stock_id):
 
 
 
+@app.route('/super_secret_db_init')
+def secret_db_init():
+    db.create_all()
 
 @app.route('/seed_data')
 def seed_data():
