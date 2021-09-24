@@ -1,23 +1,25 @@
 import os
 from flask import Flask, redirect, render_template, session, g, request, flash
 
-
-
 from sqlalchemy.exc import IntegrityError
 
 from models import db, connect_db
 from forms import NewStockForm, UserAddForm, LoginForm, NewWatchlistForm
 from stocks import *
-from my_secrets import Alpha_API_KEY
+
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone1'
+load_dotenv()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "secretkey123")
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['API_KEY'] = os.environ.get('API_KEY')
 
 connect_db(app)
 db.create_all()
@@ -170,10 +172,10 @@ def add_stock(watchlist_id):
 
 @app.route('/watchlists/<int:watchlist_id>/stock/<symbol>/details', methods=['GET', 'POST'])
 def get_stock_details(symbol, watchlist_id):
-    stock_details = get_company_overview(symbol=symbol, API_KEY=Alpha_API_KEY)
+    stock_details = get_company_overview(symbol=symbol, API_KEY=app.config['API_KEY'])
 
     if len(stock_details) > 0:
-        stock_quote = get_quote(symbol=symbol, API_KEY=Alpha_API_KEY)
+        stock_quote = get_quote(symbol=symbol, API_KEY=app.config['API_KEY'])
 
         price = stock_quote.get('Global Quote').get('05. price')
         price_float = float(price)
@@ -227,8 +229,12 @@ def delete_test():
 
 @app.route('/api_test', methods=['GET', 'POST'])
 def get_company_overview_test():
-    print(get_company_overview(symbol='AAPL', API_KEY=Alpha_API_KEY))
+    print(get_company_overview(symbol='AAPL', API_KEY=app.config['API_KEY']))
 
 @app.route('/api_test_2', methods=['GET', 'POST'])
 def get_quote_test():
-    print(type(get_quote(symbol='AAPL', API_KEY=Alpha_API_KEY)))
+    print(type(get_quote(symbol='AAPL', API_KEY=app.config['API_KEY'])))
+
+@app.route('/env_test', methods=['GET', 'POST'])
+def env_test():
+    print(os.getenv('SECRET_KEY'))
