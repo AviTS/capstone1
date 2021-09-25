@@ -12,8 +12,8 @@ https://rapidapi.com/alphavantage/api/alpha-vantage
 This API retrieves all the stock-specific information.
 
 In this project, I utilized the following technologies and languages:
-Python - Flask, SQLAlchemy, WTForms
-HTML - Jinja
-CSS - Bootstrap
-Deployment - GitHub and Heroku
-Other - dotenv
+1. Python - Flask, SQLAlchemy, WTForms
+2. HTML - Jinja
+3. CSS - Bootstrap
+4. Deployment - GitHub and Heroku
+5. Other - dotenv
