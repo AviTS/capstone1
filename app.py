@@ -22,13 +22,14 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['API_KEY'] = os.environ.get('API_KEY')
 
 connect_db(app)
+db.create_all()
 # Samir: The below line was causing heroku to not be able to run the code because it seems like it was causing db.create_all() to 
 # run multiple times at once. I created a work-around to see if this is indeed the line that breaks the app. My work-around makes it so that you have to hit this endpoint everytime I redeploy.
 # db.create_all()
-# THIS IS BAD, DON'T HAVE THIS IN FINAL APP
-@app.route('/super_secret_db_init')
-def secret_db_init():
-    db.create_all()
+# DON'T HAVE THIS IN FINAL APP
+# @app.route('/super_secret_db_init')
+# def secret_db_init():
+    
 
 CURR_USER_KEY = "curr_user"
 
